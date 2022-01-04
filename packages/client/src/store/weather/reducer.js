@@ -4,6 +4,7 @@ import { fetchWeatherData } from "../weather/action";
 const initialState = {
   loading: false,
   weather: {},
+  coordinates: { lat: 41.6941, lon: 44.8337 },
   error: "",
 };
 
@@ -23,6 +24,29 @@ const weatherSlice = createSlice({
       state.loading = false;
     },
   },
+  reducers: {
+    fetchWeather(state) {
+      state.loading = true;
+    },
+    fetchWeatherAccess(state, action) {
+      state.loading = false;
+      state.weather = action.payload;
+    },
+    fetchWeatherError(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    changeCoordinates(state, action) {
+      state.loading = true;
+      state.coordinates = action.payload;
+    },
+  },
 });
 
+export const {
+  fetchWeather,
+  fetchWeatherAccess,
+  fetchWeatherError,
+  changeCoordinates,
+} = weatherSlice.actions;
 export default weatherSlice.reducer;

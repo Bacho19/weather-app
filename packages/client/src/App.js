@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ThemeProvider } from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchWeatherData } from "./store/weather/action";
+// import { fetchWeatherData } from "./store/weather/action";
 import { GlobalStyle } from "./globalStyles";
 import { SearchCityContext } from "./context/SearchCity";
 import { themes } from "./context/Theme";
@@ -14,11 +14,7 @@ import { lightTheme, darkTheme } from "./themes";
 import { sideMenuHidding, sideMenuShowing } from "./utils/sideMenu";
 import { getCookie } from "./utils/cookies";
 import { useAuth } from "./hooks/useAuth";
-
-/*
-ამ პროექტისთვის უნდა შევქმა ახალი რეპოზიტორია readme უნდა ეწეროს კლიენტისა და სერვერის რეპოზიტორიების ლინკები
-github pages, ngrok
-*/
+import { fetchWeather } from "./store/weather/reducer";
 
 const App = () => {
   const [cityName, setCityName] = useState("Tbilisi");
@@ -30,6 +26,7 @@ const App = () => {
   const {
     weather: weatherData,
     loading,
+    coordinates,
     error,
   } = useSelector((state) => state.weather);
 
@@ -46,14 +43,22 @@ const App = () => {
   let hiddingContent = useRef();
 
   useEffect(() => {
-    dispatch(fetchWeatherData({ lat: 41.6941, lon: 44.8337 }));
+    // dispatch(fetchWeatherData(coordinates));
+    dispatch(fetchWeather(coordinates));
+    const weatherInterval = setInterval(() => {
+      dispatch(fetchWeather(coordinates));
+    }, 3600 * 1000);
 
     const token = getCookie("authToken");
     setIsAuth(!!token);
-  }, [dispatch, setIsAuth]);
+    return () => {
+      clearInterval(weatherInterval);
+    };
+  }, [dispatch, setIsAuth, coordinates]);
 
-  const handleSearchClick = (lat, lon, cityName, inputElement) => {
-    dispatch(fetchWeatherData({ lat, lon }));
+  const handleSearchClick = (cityName, inputElement) => {
+    // dispatch(fetchWeatherData({ lat, lon }));
+    // dispatch(fetchWeather(coordinates));
     setCityName(cityName);
     inputElement.current.blur();
   };
