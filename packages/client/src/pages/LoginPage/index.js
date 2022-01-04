@@ -38,7 +38,7 @@ const LoginPage = () => {
           </div>
         </LoginErrorMessage>
       )}
-      <AuthTitle>Login</AuthTitle>
+      <AuthTitle>Login.</AuthTitle>
       <Formik
         initialValues={{
           email: "",
