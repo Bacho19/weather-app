@@ -23,7 +23,7 @@ jobs:
       - name: Build
         run: |
           npm install
-          cd .\packages\client\ && npm run-script build
+          cd packages/client && npm run-script build
         env:
           REACT_APP_SERVER_URI: ${{ secrets.REACT_APP_SERVER_URI }}
           REACT_APP_WEATHER_API_ID: ${{ secrets.REACT_APP_WEATHER_API_ID }}
