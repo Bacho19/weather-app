@@ -72,7 +72,7 @@ const RegisterPage = () => {
 
   return (
     <AuthWrapper>
-      <AuthTitle>Register..</AuthTitle>
+      <AuthTitle>Register</AuthTitle>
       <Formik
         initialValues={{
           username: "",

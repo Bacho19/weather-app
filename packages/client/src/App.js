@@ -16,13 +16,6 @@ import { getCookie } from "./utils/cookies";
 import { useAuth } from "./hooks/useAuth";
 import { fetchWeather } from "./store/weather/reducer";
 
-// master push-ს github workflow მივაბათ github page-ზე deployment
-/* 
- run-ში npm install-მდე
- cd /packages/WeatherApp
- ლოკალური Node-ის შესაბამისი ვერსიის მითითება
-*/
-
 const App = () => {
   const [cityName, setCityName] = useState("Tbilisi");
   const [searchValue, setSearchValue] = useState("");
